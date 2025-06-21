@@ -28,17 +28,19 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     #check for word
-    if "tweet" in message.content.lower() and message.author != bot.user:
+    if "tweet" in message.content.lower():
         #deletes the message
         await message.delete()
 
         #creates a default message
-        userMsg = (f"** user** @user\n{message.content}")
+        userMsg = (f"** user** @user\n{' '.join((message.content).split()[1:])}")
 
         if message.reference:
-            userMsg = (f"*replying to @user*\n** user** @user\n{message.content}")
+            userMsg = (f"*replying to @user*\n** user** @user\n{' '.join((message.content).split()[1:])}")
 
-        await message.channel.send(userMsg)
+        #rather than send the message into the chat it instead sends the message to the persons dms
+        #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper
+        await message.author.send(userMsg)
 
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)

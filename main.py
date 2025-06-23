@@ -16,38 +16,38 @@ intents.message_content = True
 intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-#placeholder for when replying to messages
-replyie = ""
-
 #when bot is on send this in consol
 @bot.event
 async def on_ready():
-    print(f"good to go {bot.user.name}")
+    print(f"good to go - {bot.user.name}")
 
 #when message sent with certain contents send back warning
 @bot.event
-async def on_message(message, ctx):
+async def on_message(message):
     #check for word
     if "tweet" in message.content.lower():
         #deletes the message
         await message.delete()
 
-        #creates a default message
-        userMsg = (f"** user** @user\n{' '.join((message.content).split()[1:])}")
+        tweeterHandle = ((message.content).split("\n"))[0].split(' ')
 
+        #checks if the message is a reply to another tweet
         if message.reference:
             #gets the person being replied toos message, to get handle to add to reply message
-            message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+            messageRep = ((await message.channel.fetch_message(message.reference.message_id)).content).split("\n")
+
             #get first line and checks if reply goes to line 2 to get proper handle line
-            if "replying" in message.splitlines()[0]:
-                texthandleLine = message.splitlines()[1]
+            if "replying" in messageRep[0]:
+                handle = messageRep[1].split("@")
+                print("stuff here")
             else:
-                texthandleLine = message.splitlines()[0]
-            #get handle @user
-            Handle = texthandleLine.split('@')
+                handle = messageRep[0].split("@")
+                print("stuff here")
 
             #formats users message
-            userMsg = (f"*replying to {Handle}*\n** user** @user\n{' '.join((message.content).split()[1:])}")
+            userMsg = (f"*replying to @{handle[1]}*\n**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
+        else:
+            userMsg = (f"**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
 
         #rather than send the message into the chat it instead sends the message to the persons dms
         #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper

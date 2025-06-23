@@ -26,7 +26,7 @@ async def on_ready():
 
 #when message sent with certain contents send back warning
 @bot.event
-async def on_message(message):
+async def on_message(message, ctx):
     #check for word
     if "tweet" in message.content.lower():
         #deletes the message
@@ -36,7 +36,18 @@ async def on_message(message):
         userMsg = (f"** user** @user\n{' '.join((message.content).split()[1:])}")
 
         if message.reference:
-            userMsg = (f"*replying to @user*\n** user** @user\n{' '.join((message.content).split()[1:])}")
+            #gets the person being replied toos message, to get handle to add to reply message
+            message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+            #get first line and checks if reply goes to line 2 to get proper handle line
+            if "replying" in message.splitlines()[0]:
+                texthandleLine = message.splitlines()[1]
+            else:
+                texthandleLine = message.splitlines()[0]
+            #get handle @user
+            Handle = texthandleLine.split('@')
+
+            #formats users message
+            userMsg = (f"*replying to {Handle}*\n** user** @user\n{' '.join((message.content).split()[1:])}")
 
         #rather than send the message into the chat it instead sends the message to the persons dms
         #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper

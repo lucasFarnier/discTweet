@@ -25,7 +25,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     #check for word
-    if "tweet" in message.content.lower():
+    if  message.content.lower().lstrip().startswith("tweet "):
         #deletes the message
         await message.delete()
 
@@ -39,15 +39,16 @@ async def on_message(message):
             #get first line and checks if reply goes to line 2 to get proper handle line
             if "replying" in messageRep[0]:
                 handle = messageRep[1].split("@")
-                print("stuff here")
+                print(message.content)
             else:
                 handle = messageRep[0].split("@")
-                print("stuff here")
+                print(message.content)
 
             #formats users message
             userMsg = (f"*replying to @{handle[1]}*\n**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
         else:
             userMsg = (f"**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
+        print(message.author.mention + "\n" + userMsg)
 
         #rather than send the message into the chat it instead sends the message to the persons dms
         #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper
@@ -55,5 +56,9 @@ async def on_message(message):
 
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
+
+@bot.command()
+async def thelp(ctx):
+    await ctx.send(f"welcome to disctweet\n\nthe bot as it is in this state(version 1) has 2 functions:\ntweet and reply\n-tweet is done by writing the word 'tweet' followed by your handle (user @user) then your text for the tweet\n-reply is done by following the same format as the first one but by treating it like a normal discord reply\nthe message will be deleted from the channel and the tweet formated version in your dms\n\nbelow is a formated command:\ntweet user @user\nyour message here")
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)

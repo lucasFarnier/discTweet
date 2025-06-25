@@ -16,7 +16,7 @@ to get better instructions add bot and do "!thelp"
 
 version
 -
-1
+1.0
 
 -
 -

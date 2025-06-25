@@ -5,4 +5,6 @@ then send a formatted version to the users dms
 
 it is able to do replies as well which is the same as a normal tweet but with replying as normal on discord
 
+to get better instructions add bot and do "!thelp"
+
 this is version: 1

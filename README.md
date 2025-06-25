@@ -1,3 +1,5 @@
+description
+-
 this is a discord bot that you can add to a server to make fake tweets.
 
 the bot will delete a message saying "tweet" followed by a handle and a message
@@ -12,14 +14,17 @@ to get better instructions add bot and do "!thelp"
 -
 -
 
-this is version: 1
+version
+-
+1
 
 -
 -
 -
 -
 
-images:
+images
+-
   !thelp function
 
   ![image](https://github.com/user-attachments/assets/13dab7ba-3b02-4c61-be30-02b9a696c6a6)

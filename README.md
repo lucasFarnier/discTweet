@@ -5,6 +5,8 @@ then send a formatted version to the users dms
 
 it is able to do replies as well which is the same as a normal tweet but with replying as normal on discord
 
+
 to get better instructions add bot and do "!thelp"
+to invite my bot instead use https://discord.com/oauth2/authorize?client_id=1386002700138975292
 
 this is version: 1

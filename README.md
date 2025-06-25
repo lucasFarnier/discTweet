@@ -11,12 +11,16 @@ to get better instructions add bot and do "!thelp"
 this is version: 1
 
 images:
+  !thelp function
 
-![image](https://github.com/user-attachments/assets/13dab7ba-3b02-4c61-be30-02b9a696c6a6)
+  ![image](https://github.com/user-attachments/assets/13dab7ba-3b02-4c61-be30-02b9a696c6a6)
 
+  normal tweet
 
-![image](https://github.com/user-attachments/assets/d8edb6ab-3cfd-45c1-ba46-cab5447169a7)
-![image](https://github.com/user-attachments/assets/37a7fe42-78b4-4115-8c13-6fab8a55eb11)
+  ![image](https://github.com/user-attachments/assets/d8edb6ab-3cfd-45c1-ba46-cab5447169a7)
+  ![image](https://github.com/user-attachments/assets/37a7fe42-78b4-4115-8c13-6fab8a55eb11)
 
-![image](https://github.com/user-attachments/assets/d981f28e-3c83-4a24-8d17-293c07fadbf0)
-![image](https://github.com/user-attachments/assets/1c7ad9ff-569f-4c37-93be-9bfbbc52f8d3)
+  reply tweet
+  
+  ![image](https://github.com/user-attachments/assets/d981f28e-3c83-4a24-8d17-293c07fadbf0)
+  ![image](https://github.com/user-attachments/assets/1c7ad9ff-569f-4c37-93be-9bfbbc52f8d3)

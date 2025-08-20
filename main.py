@@ -29,7 +29,11 @@ async def on_message(message):
         #deletes the message
         await message.delete()
 
-        tweeterHandle = ((message.content).split("\n"))[0].split(' ')
+        tweeterHandleAndText = (message.content.split('@', 1))
+        Handle1 = tweeterHandleAndText[0].replace('tweet', '', 1).strip()
+        Handle2AndText = tweeterHandleAndText[1].split('\n', 1)
+        Handle2 = Handle2AndText[0]
+        Text = Handle2AndText[1]
 
         #checks if the message is a reply to another tweet
         if message.reference:
@@ -45,9 +49,9 @@ async def on_message(message):
                 print(message.content)
 
             #formats users message
-            userMsg = (f"*replying to @{handle[1]}*\n**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
+            userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}\n{Text}")
         else:
-            userMsg = (f"**{tweeterHandle[1]}** {tweeterHandle[2]}\n{' '.join((message.content).split()[3:])}")
+            userMsg = (f"**{Handle1}** @{Handle2}\n{Text}")
         print(message.author.mention + "\n" + userMsg)
 
         #rather than send the message into the chat it instead sends the message to the persons dms

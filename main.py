@@ -145,7 +145,7 @@ async def editPolls(messageRep, line):
 @bot.command()
 async def thelp(ctx):
     await ctx.send(
-        f"welcome to disctweet\n\nthe bot as it is in this state(version 1.3) has 2 functions:\ntweet and reply\n-tweet is done by writing the word 'tweet' followed by your handle (user @user) then your text for the tweet\n-reply is done by following the same format as the first one but by treating it like a normal discord reply\nthe message will be deleted from the channel and the tweet formated version in your dms\n\nbelow is a formated command:\ntweet user @user\nyour message here\n\n3rd function in development although usable wont do anything which is poll")
+        f"welcome to disctweet\n\nthe bot as it is in this state(version 1.5) has 2 functions:\ntweet and reply\n-tweet is done by writing the word 'tweet' followed by your handle (user @user) then your text for the tweet\n-reply is done by following the same format as the first one but by treating it like a normal discord reply\nthe message will be deleted from the channel and the tweet formated version in your dms\n\nbelow is a formated command:\ntweet user @user\nyour message here\n\n3rd function in development although usable wont do anything which is poll")
 
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)

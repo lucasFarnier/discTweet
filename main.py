@@ -1,64 +1,108 @@
-#importing all needed functions for setting and running the bot to code
+# importing all needed functions for setting and running the bot to code
 import discord
 from discord.ext import commands
 import logging
 from dotenv import load_dotenv
 import os
 
-#importing the token
+# importing the token
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 
-#sets up bot for coding
+# sets up bot for coding
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-#when bot is on send this in consol
+
+# when bot is on send this in consol
 @bot.event
 async def on_ready():
     print(f"good to go - {bot.user.name}")
 
-#when message sent with certain contents send back warning
+
+# when message sent with certain contents send back warning
 @bot.event
 async def on_message(message):
-    #check for word
-    if  message.content.lower().lstrip().startswith("tweet "):
-        #deletes the message
+    # check for word
+    if message.content.lower().lstrip().startswith("tweet "):
+        # deletes the message
         await message.delete()
 
-        #splits the current text to handle before and after the @ and then the text
+        # splits the current text to handle before and after the @ and then the text
         Handle1, Handle2, Text = await handleAndText(message.content, "tweet")
         userMsg = await forReplys(Handle1, Handle2, message)
 
         userMsg += f"\n{Text}"
         print(message.author.mention + "\n" + userMsg)
 
-        #rather than send the message into the chat it instead sends the message to the persons dms
-        #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper
+        # rather than send the message into the chat it instead sends the message to the persons dms
+        # more uses with stuff such as tupper which is person specific and the bot cant send as a tupper
         await message.author.send(userMsg)
 
-
-    if  message.content.lower().lstrip().startswith("poll "):
-        #deletes the message
+    if message.content.lower().lstrip().startswith("poll "):
+        # deletes the message
         await message.delete()
 
-        #splits the current text to handle before and after the @ and then the text
+        # splits the current text to handle before and after the @ and then the text
         Handle1, Handle2, Text = await handleAndText(message.content, "poll")
         userMsg = await forReplys(Handle1, Handle2, message)
         PollOptions = Text.splitlines()
 
-        userMsg += "\nnumber of responces: 0"
+        userMsg += "\nnumber of responces:0"
         for option in PollOptions:
-            userMsg += f"\n> {option} 0%"
+            userMsg += f"\n> {option} ~ **0%**"
 
         print(message.author.mention + "\n" + userMsg)
 
-        await message.author.send(userMsg)
+        webhooks = await message.channel.webhooks()
 
-    #lets the bot handle other messages while dealing with 1 message
+        webhook = discord.utils.get(webhooks, name="PollBot")
+        if webhook is None:
+            print("creating")
+            webhook = await message.channel.create_webhook(name="PollBot")
+
+        await webhook.send(
+            content=userMsg, username="PollBot")
+
+    if message.content.lower().lstrip().startswith("vote "):
+        # deletes the message
+        await message.delete()
+
+        userVote = message.content.replace("vote", '', 1).strip()
+        print(userVote)
+        if message.reference:
+            webhooks = await message.channel.webhooks()
+            webhook = discord.utils.get(webhooks, name="PollBot")
+
+            message = await message.channel.fetch_message(message.reference.message_id)
+            messageRep = (message.content).split("\n")
+
+            j = 0
+
+            for i in messageRep:
+                comparison = ((((messageRep[j])[2:]).split("~"))[0]).strip()
+                ##need to make it so it removes the percentage and votes of end, split with tilda, add tilda to poll creation
+                if messageRep[j].startswith("> ") and comparison == userVote:
+                    print(f"|{comparison}|{userVote}")
+                    messageRep = await editPolls(messageRep, j)
+                    break
+                else:
+                    j += 1
+
+            finalMessage = ""
+            for i in messageRep:
+                finalMessage += i + "\n"
+
+            try:
+                await webhook.edit_message(message.id, content=finalMessage)
+                print("Poll message updated successfully")
+            except Exception as e:
+                print("Failed to edit poll message:", e)
+
+    # lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
 
 
@@ -70,8 +114,9 @@ async def handleAndText(MessageCont, type):
     Text = Handle2AndText[1]
     return (Handle1, Handle2, Text)
 
+
 async def forReplys(Handle1, Handle2, message):
-    #checks if the message is a reply to another tweet
+    # checks if the message is a reply to another tweet
     if message.reference:
         # gets the person being replied toos message, to get handle to add to reply message
         messageRep = ((await message.channel.fetch_message(message.reference.message_id)).content).split("\n")
@@ -79,10 +124,10 @@ async def forReplys(Handle1, Handle2, message):
         # get first line and checks if reply goes to line 2 to get proper handle line
         if "replying" in messageRep[0]:
             handle = messageRep[1].split("@")
-            print(message.content)
         else:
             handle = messageRep[0].split("@")
-            print(message.content)
+
+        print(message.content)
 
         # formats users message
         userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}")
@@ -90,8 +135,17 @@ async def forReplys(Handle1, Handle2, message):
         userMsg = (f"**{Handle1}** @{Handle2}")
     return userMsg
 
+
+async def editPolls(messageRep, line):
+    line2 = messageRep[1].split(":")
+    messageRep[1] = line2[0] + ":" + str(int(line2[1]) + 1)
+    return messageRep
+
+
 @bot.command()
 async def thelp(ctx):
-    await ctx.send(f"welcome to disctweet\n\nthe bot as it is in this state(version 1.3) has 2 functions:\ntweet and reply\n-tweet is done by writing the word 'tweet' followed by your handle (user @user) then your text for the tweet\n-reply is done by following the same format as the first one but by treating it like a normal discord reply\nthe message will be deleted from the channel and the tweet formated version in your dms\n\nbelow is a formated command:\ntweet user @user\nyour message here\n3rd function in development although usable wont do anything which is poll")
+    await ctx.send(
+        f"welcome to disctweet\n\nthe bot as it is in this state(version 1.3) has 2 functions:\ntweet and reply\n-tweet is done by writing the word 'tweet' followed by your handle (user @user) then your text for the tweet\n-reply is done by following the same format as the first one but by treating it like a normal discord reply\nthe message will be deleted from the channel and the tweet formated version in your dms\n\nbelow is a formated command:\ntweet user @user\nyour message here\n\n3rd function in development although usable wont do anything which is poll")
+
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)

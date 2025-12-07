@@ -1,3 +1,4 @@
+#hello frim github
 #importing all needed functions for setting and running the bot to code
 import discord
 from discord.ext import commands
@@ -103,9 +104,25 @@ async def on_message(message):
             except Exception as e:
                 print("Failed to edit poll message:", e)
 
+    if message.content.lower().lstrip().startswith("retweet "):
+        #deletes the message
+        await message.delete()
+
+        #splits the current text to handle before and after the @ and then the text
+        Handle1, Handle2, Text = await handleAndText(message.content, "retweet")
+        userMsg = await forReplys(Handle1, Handle2, message)
+
+        userMsg += f"\n{Text}"
+        print(message.author.mention + "\n" + userMsg)
+        retweetMsg = (await message.channel.fetch_message(message.reference.message_id)).content
+        for retweetLine in retweetMsg.split("\n"):
+            finaltTweetMsg += ("\t" + retweetLine)
+        print(finaltTweetMsg)
+
+        await message.author.send(userMsg + "\n" + finaltTweetMsg)
+
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
-
 
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))

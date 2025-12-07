@@ -1,4 +1,4 @@
-#hello frim github
+#hello from github
 #importing all needed functions for setting and running the bot to code
 import discord
 from discord.ext import commands

@@ -46,7 +46,7 @@ async def on_message(message):
         #more uses with stuff such as tupper which is person specific and the bot cant send as a tupper
         await message.author.send(userMsg)
 
-    if message.content.lower().lstrip().startswith("poll "):
+    elif message.content.lower().lstrip().startswith("poll "):
         #deletes the message
         await message.delete()
 
@@ -70,7 +70,7 @@ async def on_message(message):
                 
         await webhook.send(content=userMsg, username="PollBot")
 
-    if message.content.lower().lstrip().startswith("vote "):
+    elif message.content.lower().lstrip().startswith("vote "):
         #deletes the message
         await message.delete()
 
@@ -108,7 +108,7 @@ async def on_message(message):
             except Exception as e:
                 print("Failed to edit poll message:", e)
 
-    if message.content.lower().lstrip().startswith("retweet "):
+    elif message.content.lower().lstrip().startswith("retweet "):
         #deletes the message
         await message.delete()
 
@@ -126,7 +126,7 @@ async def on_message(message):
         await message.author.send(userMsg + "\n" + finaltTweetMsg)
 
 
-    if "gorkus " in message.content.lower().lstrip() and not(message.content.lower().lstrip().startswith("tweet ")):
+    elif "gorkus " in message.content.lower().lstrip() and not(message.content.lower().lstrip().startswith("tweet ")):
         exuse = await gorkus()
         print(exuse)
 

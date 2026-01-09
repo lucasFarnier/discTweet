@@ -126,7 +126,7 @@ async def on_message(message):
         await message.author.send(userMsg + "\n" + finaltTweetMsg)
 
 
-    if message.content.lower().lstrip().startswith("gorkus "):
+    if message.content.lower().lstrip().contains("gorkus"):
         exuse = await gorkus()
         print(exuse)
 

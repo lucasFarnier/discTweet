@@ -130,7 +130,8 @@ async def on_message(message):
 
 
     if message.content.lower().lstrip().startswith("goruks "):
-        await gorkus()
+        exuse = await gorkus()
+        print(exuse)
 
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))
@@ -187,12 +188,12 @@ async def editPollsVote(messageRep, line, votes):
     return messageRep
 
 #prelininary function to test fake grok that just gives an ecuse for everything
-async def gorkus():
+def gorkus():
     #gets exuse from api
     excuse = json.loads(requests.get("https://naas.isalman.dev/no").content)
     #prints content
     #will be replaced with webhook like pollbot
-    print(excuse["reason"])
+    return(excuse["reason"])
 
 @bot.command()
 async def thelp(ctx):

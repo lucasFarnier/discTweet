@@ -189,7 +189,7 @@ async def editPollsVote(messageRep, line, votes):
     return messageRep
 
 #prelininary function to test fake grok that just gives an ecuse for everything
-def gorkus():
+async def gorkus():
     #gets exuse from api
     excuse = json.loads(requests.get("https://naas.isalman.dev/no").content)
     #prints content

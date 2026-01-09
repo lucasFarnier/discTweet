@@ -2,7 +2,12 @@
 #importing all needed functions for setting and running the bot to code
 import discord
 from discord.ext import commands
+
 import logging
+
+import requests
+import json
+
 from dotenv import load_dotenv
 import os
 
@@ -63,8 +68,7 @@ async def on_message(message):
             print("creating")
             webhook = await message.channel.create_webhook(name="PollBot")
                 
-        await webhook.send(
-            content=userMsg, username="PollBot")
+        await webhook.send(content=userMsg, username="PollBot")
 
     if message.content.lower().lstrip().startswith("vote "):
         #deletes the message
@@ -124,6 +128,10 @@ async def on_message(message):
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
 
+
+    if message.content.lower().lstrip().startswith("goruks "):
+        gorkus()
+
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))
     Handle1 = tweeterHandleAndText[0].replace(type, '', 1).strip()
@@ -177,6 +185,14 @@ async def editPollsVote(messageRep, line, votes):
         i += 1
     
     return messageRep
+
+#prelininary function to test fake grok that just gives an ecuse for everything
+async def gorkus():
+    #gets exuse from api
+    excuse = json.loads(requests.get("https://naas.isalman.dev/no").content)
+    #prints content
+    #will be replaced with webhook like pollbot
+    print(excuse["reason"])
 
 @bot.command()
 async def thelp(ctx):

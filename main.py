@@ -130,7 +130,7 @@ async def on_message(message):
 
 
     if message.content.lower().lstrip().startswith("goruks "):
-        gorkus()
+        await gorkus()
 
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))

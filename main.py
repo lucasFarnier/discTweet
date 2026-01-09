@@ -125,13 +125,14 @@ async def on_message(message):
 
         await message.author.send(userMsg + "\n" + finaltTweetMsg)
 
+
+    if message.content.lower().lstrip().startswith("gorkus "):
+        exuse = await gorkus()
+        print(exuse)
+
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
 
-
-    if message.content.lower().lstrip().startswith("goruks "):
-        exuse = await gorkus()
-        print(exuse)
 
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))

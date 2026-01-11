@@ -60,7 +60,7 @@ async def on_message(message):
 
         print(userMsg)
 
-        userMsg += "\n" + title
+        userMsg += f"\n **{title}**"
 
         print(userMsg)
 

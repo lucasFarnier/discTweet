@@ -133,6 +133,7 @@ async def on_message(message):
         if "replying" in messageRep[0]:
             handle = messageRep[1].split("@")
         else:
+            handle = messageRep[0].split("@")
 
         exuse = await gorkus()
         exuse = f"*replying to @{handle[1]}*\n" + "**gorkus** @TheGreat\n\n" + exuse

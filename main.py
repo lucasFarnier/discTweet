@@ -164,10 +164,9 @@ async def handleAndText(MessageCont, type):
     Handle2 = Handle2AndText[0]
 
     Text = Handle2AndText[1]
-    if not (Text.split('\n', 1))[0].strip():
+    if (Text.split('\n', 1))[0].empty():
         print("no space")
-    print("empty?" + Text.split('\n', 1)[0] + "empty?")
-    print("text" + Text.split('\n', 1)[1])
+
 
     return (Handle1, Handle2, Text)
 

@@ -130,6 +130,15 @@ async def on_message(message):
         exuse = await gorkus()
         print(exuse)
 
+        webhooks = await message.channel.webhooks()
+
+        webhook = discord.utils.get(webhooks, name="Gorkus")
+        if webhook is None:
+            print("creating")
+            webhook = await message.channel.create_webhook(name="Gorkus")
+
+        await webhook.send(content=exuse, username="Gorkus")
+
     #lets the bot handle other messages while dealing with 1 message
     await bot.process_commands(message)
 

@@ -56,10 +56,12 @@ async def on_message(message):
         PollOptions = Text.splitlines()
 
         userMsg += "\nnumber of responces:0"
+        title = PollOptions[0]
+        PollOptions.remove(PollOptions[0])
         for option in PollOptions:
             userMsg += f"\n> {option} ~ **0%** ~ **0 votes**"
 
-        print(message.author.mention + "\n" + userMsg)
+        print(message.author.mention + "\n" + title + "\n" + userMsg)
 
         webhooks = await message.channel.webhooks()
 

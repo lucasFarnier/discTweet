@@ -132,6 +132,7 @@ async def on_message(message):
 
         Handle1, Handle2, Text = await handleAndText(message.content, "tweet")
         print("handle 1" + Handle1 + "\nhandle2" + Handle2 + "\ntext" + Text)
+        print("msg" + message)
         userMsg = await forReplys(Handle1, Handle2, message)
         print("\nmsg" + userMsg)
 

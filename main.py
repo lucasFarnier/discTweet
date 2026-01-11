@@ -53,15 +53,15 @@ async def on_message(message):
         #splits the current text to handle before and after the @ and then the text
         Handle1, Handle2, Text = await handleAndText(message.content, "poll")
         userMsg = await forReplys(Handle1, Handle2, message)
-        PollOptions = Text.splitlines()
 
+        PollOptions = [line.strip() for line in Text.splitlines() if line.strip()]
         title = PollOptions[0]
-        PollOptions.pop(0)
+        PollOptions = PollOptions[1:]
         print(PollOptions)
 
         userMsg += title
 
-        userMsg += "\nnumber of responces:0"
+        userMsg += "\nnumber of responses:0"
         for option in PollOptions:
             userMsg += f"\n> {option} ~ **0%** ~ **0 votes**"
 
@@ -80,7 +80,10 @@ async def on_message(message):
         #deletes the message
         await message.delete()
 
-        userVote = message.content.replace("vote", '', 1).strip()
+        if message.content.startswith("Vote "):
+            userVote = message.content.replace("Vote", '', 1).strip()
+        else:
+            userVote = message.content.replace("vote", '', 1).strip()
         print(userVote)
         if message.reference:
             webhooks = await message.channel.webhooks()
@@ -163,6 +166,8 @@ async def handleAndText(MessageCont, type):
 
     if ("Tweet" in tweeterHandleAndText[0]):
         Handle1 = tweeterHandleAndText[0].replace("Tweet", '', 1).strip()
+    elif ("Poll" in tweeterHandleAndText[0]):
+        Handle1 = tweeterHandleAndText[0].replace("Poll", '', 1).strip()
     else:
         Handle1 = tweeterHandleAndText[0].replace(type, '', 1).strip()
 

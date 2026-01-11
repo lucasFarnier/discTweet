@@ -1,4 +1,4 @@
--fix format issue when Tweet instead of tweet
+-fix format issue when Tweet instead of tweet -- done
 -check to add space for format if there isnt one
 -make it add titles for poll
 -make retweet work

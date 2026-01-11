@@ -133,12 +133,6 @@ async def on_message(message):
         if "replying" in messageRep[0]:
             handle = messageRep[1].split("@")
         else:
-            handle = messageRep[0].split("@")
-
-        print(handle[1])
-
-        # formats users message
-        #userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}")
 
         exuse = await gorkus()
         exuse = f"*replying to @{handle[1]}*\n" + "**gorkus** @TheGreat\n\n" + exuse
@@ -159,9 +153,15 @@ async def on_message(message):
 
 async def handleAndText(MessageCont, type):
     tweeterHandleAndText = (MessageCont.split('@', 1))
-    Handle1 = tweeterHandleAndText[0].replace(type, '', 1).strip()
+
+    if ("Tweet" in tweeterHandleAndText[0]):
+        Handle1 = tweeterHandleAndText[0].replace("Tweet", '', 1).strip()
+    else:
+        Handle1 = tweeterHandleAndText[0].replace(type, '', 1).strip()
+
     Handle2AndText = tweeterHandleAndText[1].split('\n', 1)
     Handle2 = Handle2AndText[0]
+
     Text = Handle2AndText[1]
     return (Handle1, Handle2, Text)
 

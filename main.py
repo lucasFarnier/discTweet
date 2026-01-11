@@ -127,7 +127,7 @@ async def on_message(message):
 
 
     elif "gorkus " in message.content.lower().lstrip() and not(message.content.lower().lstrip().startswith("tweet ")) and not message.author.bot:
-        messageRep = "gorkus " in message.content.lower().lstrip().split("\n")
+        messageRep = message.content.lower().lstrip().split("\n")
 
         print("test")
         print(messageRep[0])
@@ -138,7 +138,7 @@ async def on_message(message):
         else:
             handle = messageRep[0].split("@")
 
-        print(handle)
+        print(handle[1])
 
         # formats users message
         #userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}")

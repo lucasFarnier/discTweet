@@ -129,7 +129,7 @@ async def on_message(message):
     elif "gorkus " in message.content.lower().lstrip() and not(message.content.lower().lstrip().startswith("tweet ")) and not message.author.bot:
         messageRep = "gorkus " in message.content.lower().lstrip().split("\n")
 
-        print(messageRep)
+        print(messageRep[0])
 
         # get first line and checks if reply goes to line 2 to get proper handle line
         if "replying" in messageRep[0]:

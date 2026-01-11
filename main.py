@@ -56,7 +56,7 @@ async def on_message(message):
         PollOptions = Text.splitlines()
 
         title = PollOptions[0]
-        PollOptions.remove(PollOptions[0])
+        PollOptions[0].pop()
         print(PollOptions)
 
         userMsg += "\nnumber of responces:0"

@@ -164,6 +164,8 @@ async def handleAndText(MessageCont, type):
     Handle2 = Handle2AndText[0]
 
     Text = Handle2AndText[1]
+    if "\n" not in (Text.split('\n', 1))[0]:
+        print("no space")
     return (Handle1, Handle2, Text)
 
 async def forReplys(Handle1, Handle2, message):

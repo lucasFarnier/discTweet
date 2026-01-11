@@ -57,7 +57,7 @@ async def on_message(message):
         PollOptions = [line.strip() for line in Text.splitlines() if line.strip()]
         title = PollOptions[0]
         PollOptions = PollOptions[1:]
-        print(PollOptions)
+        print("title:" + title)
 
         userMsg += title
 

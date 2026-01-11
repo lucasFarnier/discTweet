@@ -60,7 +60,7 @@ async def on_message(message):
 
         print(userMsg)
 
-        userMsg += f"\n #{title}    "
+        userMsg += f"\n**{title}**"
 
         print(userMsg)
 
@@ -204,10 +204,9 @@ async def forReplys(Handle1, Handle2, message):
     return userMsg
 
 async def editPollsTotal(messageRep):
-    print(messageRep)
     line3 = messageRep[2].split(":")
     votesTotal = int(line3[1])+1
-    messageRep[1] = line3[0] + ":" + str(votesTotal)
+    messageRep[2] = line3[0] + ":" + str(votesTotal)
     return messageRep, votesTotal
 
 async def editPollsVote(messageRep, line, votes):

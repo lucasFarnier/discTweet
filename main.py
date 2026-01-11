@@ -141,7 +141,7 @@ async def on_message(message):
         #userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}")
 
         exuse = await gorkus()
-        exuse = "*replying to @{handle[1]}*\n" + "gorkus @TheGreat\n" + exuse
+        exuse = f"*replying to @{handle[1]}*\n" + "gorkus @TheGreat\n" + exuse
         print(exuse)
 
         webhooks = await message.channel.webhooks()

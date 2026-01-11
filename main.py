@@ -130,6 +130,11 @@ async def on_message(message):
         exuse = await gorkus()
         print(exuse)
 
+        Handle1, Handle2, Text = await handleAndText(message.content, "tweet")
+        print(Handle1, "\n", Handle2, "\n", Text)
+        userMsg = await forReplys(Handle1, Handle2, message)
+        print(userMsg)
+
         webhooks = await message.channel.webhooks()
 
         webhook = discord.utils.get(webhooks, name="Gorkus")

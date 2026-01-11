@@ -102,7 +102,7 @@ async def on_message(message):
                 ##need to make it so it removes the percentage and votes of end, split with tilda, add tilda to poll creation
                 if messageRep[j].startswith("> ") and comparison == userVote:
                     print(f"|{comparison}|{userVote}")
-                    messageRep, votesTotal = await editPollsTotal(messageRep, j)
+                    messageRep, votesTotal = await editPollsTotal(messageRep)
                     print("completed total")
                     messageRep = await editPollsVote(messageRep, j, votesTotal)
                     print("completed line total")
@@ -203,7 +203,8 @@ async def forReplys(Handle1, Handle2, message):
         userMsg = (f"**{Handle1}** @{Handle2}")
     return userMsg
 
-async def editPollsTotal(messageRep, line):
+async def editPollsTotal(messageRep):
+    print(messageRep)
     line3 = messageRep[2].split(":")
     votesTotal = int(line3[1])+1
     messageRep[1] = line3[0] + ":" + str(votesTotal)

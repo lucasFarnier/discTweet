@@ -131,9 +131,9 @@ async def on_message(message):
         print(exuse)
 
         Handle1, Handle2, Text = await handleAndText(message.content, "tweet")
-        print(Handle1, "\n", Handle2, "\n", Text)
+        print("handle 1" + Handle1 + "\nhandle2" + Handle2 + "\ntext" + Text)
         userMsg = await forReplys(Handle1, Handle2, message)
-        print(userMsg)
+        print("\nmsg" + userMsg)
 
         webhooks = await message.channel.webhooks()
 

@@ -129,9 +129,6 @@ async def on_message(message):
     elif "gorkus " in message.content.lower().lstrip() and not(message.content.lower().lstrip().startswith("tweet ")) and not message.author.bot:
         messageRep = message.content.lower().lstrip().split("\n")
 
-        print("test")
-        print(messageRep[0])
-
         # get first line and checks if reply goes to line 2 to get proper handle line
         if "replying" in messageRep[0]:
             handle = messageRep[1].split("@")
@@ -144,6 +141,7 @@ async def on_message(message):
         #userMsg = (f"*replying to @{handle[1]}*\n**{Handle1}** @{Handle2}")
 
         exuse = await gorkus()
+        exuse = "*replying to @{handle[1]}*\n" + "gorkus @TheGreat\n" + exuse
         print(exuse)
 
         webhooks = await message.channel.webhooks()

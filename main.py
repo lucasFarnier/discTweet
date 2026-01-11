@@ -59,6 +59,8 @@ async def on_message(message):
         PollOptions.pop(0)
         print(PollOptions)
 
+        userMsg += title
+
         userMsg += "\nnumber of responces:0"
         for option in PollOptions:
             userMsg += f"\n> {option} ~ **0%** ~ **0 votes**"

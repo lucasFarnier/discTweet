@@ -1,6 +1,6 @@
 -fix format issue when Tweet instead of tweet -- done
 -check to add space for format if there isnt one -- done
--make it add titles for poll
+-make it add titles for poll -- done
 -make retweet work
 -add it so you can save display names to use rather than type it all out
 -make checks to validate inputs and tell user if not correct
